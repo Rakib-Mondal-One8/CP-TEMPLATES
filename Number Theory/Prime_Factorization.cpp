@@ -37,24 +37,35 @@ ll mod_div(ll a, ll b, ll m) { a = a % m; b = b % m; return (mod_mul(a, mminvpri
 int nXOR(int n) { if (n % 4 == 0)return n; if (n % 4 == 1)return 1; if (n % 4 == 2)return n + 1; return 0; }
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-vector<ll> primeFactorization(ll n) {
-    vector<ll>factorization;
-    for (ll d = 2; d * d <= n; d++) {
-        while (n % d == 0) {
-            factorization.push_back(d);
-            n /= d;
+vector<pair<int, int>> primeFactorization(int x, vector<int>& spf) {
+    vector<pair<int, int>>ans;
+    while (x != 1) {
+        int prime = spf[x];
+        int cnt = 0;
+        while (x % prime == 0) {
+            cnt++;
+            x /= prime;
         }
+        ans.push_back({ prime,cnt });
     }
-    if (n > 1)factorization.push_back(n);
-    return factorization;
+    return ans;
 }
 void solve()
 {
-    int n;
-    cin >> n;
+    int maxN = 1e6;
+    vector<bool>Prime(maxN, true);
+    vector<int>spf(1e6, 1e9);
 
-    vector<ll>a = primeFactorization(n);
-    debug(a);
+    for (ll i = 2; i < maxN;i++) {
+        if (Prime[i]) {
+            spf[i] = i;
+            for (ll j = i * i;j < maxN;j += i) {
+                Prime[j] = false;
+                spf[j] = min(spf[j], (int)i);
+            }
+        }
+    }
+    vector<pair<int, int>>primeF = primeFactorization(36, spf);
 }
 int32_t main()
 {
