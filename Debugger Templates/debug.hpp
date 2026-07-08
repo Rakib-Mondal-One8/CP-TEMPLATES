@@ -1,7 +1,4 @@
-inline void init_code() {
-    freopen("Error.txt", "w", stderr);
-    cerr << fixed << setprecision(10);
-}
+
 /* -------- Pretty Printing -------- */
 
 template<class T1, class T2>
