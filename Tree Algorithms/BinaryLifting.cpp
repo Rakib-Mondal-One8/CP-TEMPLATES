@@ -23,8 +23,8 @@ struct BinaryLifting {
 		vector<bool>visited(n);
 		dfsBinaryLifting(root, edges, visited);
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 1; j <= mxLog; j++) {
+                for (int j = 1; j <= mxLog; j++) {
+			 for (int i = 0; i < n; i++) {
 				int intermediate = parent[i][j - 1];
 				if (intermediate != -1) {
 					parent[i][j] = parent[intermediate][j - 1];
